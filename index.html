@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+    <title>KB-VIZ</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-76395894-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+  
+  <header>
+
+    <div id="nav">
+
+    <div class="nav_row one">
+
+      <div id="title">
+        <i class="fa fa-info-circle"></i><span id="kbviz">KB-VIZ</span>
+      </div>
+
+      <div class="dropdown">
+        <div id="prev" class="fa fa-angle-left"></div>
+        <div class="dropbtn">1996-97</div>
+        <div id="next" class="fa fa-angle-right"></div>
+        <div class="dropdown-content">
+          <ul class="content-list">
+            <li id="1997">1996-97</li>
+            <li id="1998">1997-98</li>
+            <li id="1999">1998-99</li>
+            <li id="2000"><span class='trophy'>▲</span>1999-00</li>
+            <li id="2001"><span class='trophy'>▲</span>2000-01</li>
+            <li id="2002"><span class='trophy'>▲</span>2001-02</li>
+            <li id="2003">2002-03</li>
+            <li id="2004"><span class='trophy'>△</span>2003-04</li>
+            <li id="2005">2004-05</li>
+            <li id="2006">2005-06</li>
+            <li id="2007">2006-07</li>
+            <li id="2008"><span class='trophy'>△</span>2007-08</li>
+            <li id="2009"><span class='trophy'>▲</span></span>2008-09</li>
+            <li id="2010"><span class='trophy'>▲</span>2009-10</li>
+            <li id="2011">2010-11</li>
+            <li id="2012">2011-12</li>
+            <li id="2013">2012-13</li>
+            <li id="2014">2013-14</li>
+            <li id="2015">2014-15</li>
+            <li id="2016">2015-16</li>
+            <li class="dropdown_legend">▲ Won NBA Finals</li>
+            <li class="dropdown_legend">△ Lost NBA Finals</li>
+          </ul>
+        </div>
+      </div>
+
+    </div> <!-- END TOP ROW -->
+
+    <div class="nav_row two">
+      <div class="stat_button">
+        Points
+      </div>
+      <div class="stat_button">
+        Rebounds
+      </div>
+      <div class="stat_button">
+        Assists
+      </div>
+      <div class="stat_button">
+        Minutes
+      </div>
+    </div> <!-- END BOTTOM ROW -->
+
+    </div>
+    <div id="line_chart"></div>
+
+  </header>
+
+  <div id="container">
+
+  <div id="template_holder">
+      <div class="spinner table-loader">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+  </div>
+
+  <table id="header-fixed"></table>
+
+  <div id="about"> 
+      <div id="about-text">
+        <h1>ABOUT KB-VIZ</h1>
+        <p> 
+          This is a dashboard of Kobe Bryant's legendary career in the NBA. The underlying data is from <a href="http://www.basketball-reference.com" target="_blank">Basketball-Reference.com</a>.
+        </p>
+        <p> 
+          You can toggle between the number of <span>Points</span>, <span>Rebounds</span>, <span>Assists</span>, and <span>Minutes</span> for every game that KB played during his career.
+        </p>
+        <p>You can also sort the data based on <span>Date</span>, <span>Opponent</span>, and the currently selected <span>Stat</span> by clicking <span><i class='fa fa-angle-up'></i></span>.
+        </p>
+        <p>For frequency data, select a specific statistic directly on the table.</p>        
+        <p>To select a new season, click the <span><i class='fa fa-angle-left'></i></span> or <span><i class='fa fa-angle-right'></i></span>. You can also click the season name <span>i.e., 1996-97</span> for a dropdown menu of all the seasons.
+        </p>
+        <p style="text-align: center"> 
+          Created by <a href="http://www.datalooksdope.com" target="_blank">DataLooksDope.com</a>
+        </p>
+      </div>
+      <i class="fa fa-close"></i>
+    </div>
+  <img src="images/screenshot.png" style="display: none;" />
+  <div id="footer">
+    created by <a class="red" href="http://www.datalooksdope.com">Data Looks Dope</a>
+  </div>
+
+  </div>
+
+  <script id="template" type="text/template">
+
+  <table id='table-1'>
+    <thead>
+      <tr>
+        <th class="date-sort sort fixed-text"><span style="color: indianred" class="fa fa-angle-down"></span>&nbspDate</th>
+        <th class="opp-sort sort fixed-text"><span class="fa fa-angle-up"></span>&nbspOpp</th>
+        <th class="stat-sort sort fixed-text"><span class="fa fa-angle-up"></span>&nbspStat</th>
+        <th class="fixed-text">
+          <div class='legend-item career'> 
+            <span class='legend-pre-text'>Career Avg: </span><span class='career_avg legend-value'></span>
+          </div>
+          <div class='legend-item season'> 
+             <span class='legend-pre-text'>Season Avg: </span><span class='season_avg legend-value'></span>
+          </div>
+        </th> 
+      </tr>
+    </thead>
+    <tbody>
+    {{#games}}
+       <tr class="container">
+        <td class="game_date toggle-data"></td>
+        <td class="opp toggle-data"></td>
+        <td class="change toggle-data"></td>
+        <td>
+          <div class='d1'>&nbsp</div>
+          <div class='d2'>&nbsp</div>
+          <div class='d3'>&nbsp</div>
+        </td>
+      </tr>
+      <tr class="toggle-row" style="display: none">
+        <td class="toggle-td" colspan="4">
+          <span class='toggle-text'></span>
+        </td>
+      </tr>
+    {{/games}}
+      <tr class="last_row">
+        <td colspan="2">Playoffs <span class="red">●</span></td>
+        <td> <span id="stat_total"></span></td> 
+        <td> <span id="games_played"></span> Games Played</td> 
+      </tr>
+    </tbody>
+  </table>
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+	<script src="dist/all.js"></script>
+  </body>
+</html>
